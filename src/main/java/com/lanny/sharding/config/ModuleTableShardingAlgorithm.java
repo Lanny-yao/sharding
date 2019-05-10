@@ -23,6 +23,8 @@ public final class ModuleTableShardingAlgorithm implements SingleKeyTableShardin
      *          └── SELECT *  FROM t_order_1 WHERE order_id = 11
      *  select * from t_order from t_order where order_id = 44
      *          └── SELECT *  FROM t_order_0 WHERE order_id = 44
+     *
+     *  orderId为偶数放入table0，为奇数则放入table1
      */
     @Override
     public String doEqualSharding(final Collection<String> tableNames, final ShardingValue<Long> shardingValue) {

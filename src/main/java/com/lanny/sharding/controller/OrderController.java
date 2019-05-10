@@ -46,8 +46,13 @@ public class OrderController {
         return "success";
     }
 
-    @RequestMapping("query")
+    @RequestMapping("/query")
     private Object queryAll() {
         return orderRepository.findAll();
+    }
+
+    @RequestMapping("/between")
+    private Object queryBetween(){
+        return orderRepository.findAllByUserIdBetween(5, 10);
     }
 }

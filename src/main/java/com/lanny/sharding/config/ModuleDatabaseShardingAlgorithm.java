@@ -30,7 +30,7 @@ public class ModuleDatabaseShardingAlgorithm implements SingleKeyDatabaseShardin
      * 分片策略 相等=
      * @param availableTargetNames 可用的目标名字(这里指数据名db0、db1)
      * @param shardingValue 分片值[logicTableName="t_order" 逻辑表名, columnName="user_id" 分片的列名, value="20" 分片的列名对应的值(user_id=20)]
-     * @return
+     * @return userId为偶数放入db0，为奇数则放入db1
      */
     @Override
     public String doEqualSharding(Collection<String> availableTargetNames, ShardingValue<Long> shardingValue) {
