@@ -37,13 +37,11 @@ public class DataSourceConfiguration {
     private String driverClassName;
 
     @Bean
-    public DataSource getDataSource()
-            throws SQLException, IllegalAccessException, ClassNotFoundException, InstantiationException {
+    public DataSource getDataSource() throws SQLException {
         return buildDataSource();
     }
 
-    private DataSource buildDataSource()
-            throws SQLException, IllegalAccessException, InstantiationException, ClassNotFoundException {
+    private DataSource buildDataSource() throws SQLException {
         // 设置分库映射
         Map<String, DataSource> dataSourceMap = new HashMap<>(2);
         // 添加两个数据库db0,db1到map里
@@ -70,15 +68,14 @@ public class DataSourceConfiguration {
         return ShardingDataSourceFactory.createDataSource(shardingRule);
     }
 
-    private  DataSource createDataSource(final String dataSourceName)
-            throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+    private DataSource createDataSource(final String dataSourceName) {
         // 使用druid连接数据库
         DruidDataSource result = new DruidDataSource();
         result.setDriverClassName(Driver.class.getName());
         result.setUrl(String.format("jdbc:mysql://localhost:3306/%s", dataSourceName));
         result.setUsername(userName);
         result.setPassword(password);
-        result.setDriver((Driver) Class.forName(driverClassName).newInstance());
+        result.setDriverClassName(driverClassName);
         return result;
     }
 
